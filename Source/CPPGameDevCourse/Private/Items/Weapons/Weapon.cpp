@@ -13,6 +13,7 @@
 
 AWeapon::AWeapon()
 {
+	ItemMesh->SetCollisionResponseToAllChannels(ECollisionResponse::ECR_Ignore);
 	ItemMesh->SetCollisionEnabled(ECollisionEnabled::NoCollision);
 
 	WeaponCollisionBox = CreateDefaultSubobject<UBoxComponent>(TEXT("Weapon Collision Box"));
@@ -65,8 +66,6 @@ void AWeapon::AttackMeshToSocket(USceneComponent* InParent, const FName& InSocke
 
 void AWeapon::ResetHitIgnoreActors()
 {
-	UE_LOG(LogTemp, Warning, TEXT("REsetting hit ignore actors"));
-
 	HitIgnoreActors.Empty();
 }
 
