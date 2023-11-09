@@ -56,6 +56,9 @@ bool ABaseCharacter::IsAlive()
 
 void ABaseCharacter::DirectionalHitReact(const FVector& ImpactPoint)
 {
+	if (HitReactionMontage == nullptr)
+		return;
+
 	const FVector Forward = GetActorForwardVector();
 
 	const FVector ImpactLowered(ImpactPoint.X, ImpactPoint.Y, GetActorLocation().Z);

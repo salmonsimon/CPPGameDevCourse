@@ -14,6 +14,7 @@
 #include "Items\Weapons\Weapon.h"
 #include "Animation/AnimMontage.h"
 #include "Components\BoxComponent.h"
+#include "Components/StaticMeshComponent.h"
 
 #pragma region Main
 
@@ -28,6 +29,12 @@ APlayerCharacter::APlayerCharacter()
 
 	GetCharacterMovement()->bOrientRotationToMovement = true;
 	GetCharacterMovement()->RotationRate = FRotator(0.f, 400.f, 0.f);
+
+	GetMesh()->SetCollisionObjectType(ECollisionChannel::ECC_WorldDynamic);
+	GetMesh()->SetCollisionResponseToAllChannels(ECollisionResponse::ECR_Ignore);
+	GetMesh()->SetCollisionResponseToChannel(ECollisionChannel::ECC_Visibility, ECollisionResponse::ECR_Block);
+	GetMesh()->SetCollisionResponseToChannel(ECollisionChannel::ECC_WorldDynamic, ECollisionResponse::ECR_Overlap);
+	GetMesh()->SetGenerateOverlapEvents(true);
 
 	SpringArm = CreateDefaultSubobject<USpringArmComponent>(TEXT("SpringArm"));
 	SpringArm->SetupAttachment(RootComponent);
@@ -51,7 +58,12 @@ void APlayerCharacter::BeginPlay()
 		}
 	}
 
-	Tags.Add(FName("Player"));
+	Tags.Add(FName("EngageableTarget"));
+}
+
+void APlayerCharacter::Death()
+{
+
 }
 
 void APlayerCharacter::Tick(float DeltaTime)

@@ -40,6 +40,7 @@ protected:
 #pragma region Main
 
 	virtual void BeginPlay() override;
+	virtual void Death() override;
 	UFUNCTION(BlueprintCallable) void BackToUnoccupiedState();
 
 #pragma endregion

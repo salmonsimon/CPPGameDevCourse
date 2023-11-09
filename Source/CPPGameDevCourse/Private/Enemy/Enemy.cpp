@@ -94,6 +94,8 @@ void AEnemy::BeginPlay()
 		FTimerHandle UnusedHandle;
 		GetWorldTimerManager().SetTimer(UnusedHandle, this, &AEnemy::StartPatrolling, .1f, false);
 	}
+
+	Tags.Add(FName("Enemy"));
 }
 
 void AEnemy::Death()
@@ -156,7 +158,7 @@ void AEnemy::PawnSeen(APawn* SeenPawn)
 {
 	const bool bShouldChaseTarget =
 		EnemyState == EEnemyState::EES_Patrolling &&
-		SeenPawn->ActorHasTag(FName("Player"));
+		SeenPawn->ActorHasTag(FName("EngageableTarget"));
 
 	if (bShouldChaseTarget)
 	{
